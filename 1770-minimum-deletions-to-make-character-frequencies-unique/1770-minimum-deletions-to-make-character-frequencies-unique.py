@@ -4,17 +4,14 @@ class Solution:
         ans = 0;
         freq = set();
 
-        arr = sorted(cnt.values(), reverse=True);
+        heap = list(cnt.values());
+        heapq.heapify(heap);
 
-        for fq in arr:
-            if fq not in freq:
-                freq.add(fq)
-                continue;
-            
+        while heap:
+            fq = heapq.heappop(heap)
             while fq > 0 and fq in freq:
                 fq -= 1;
                 ans += 1;
-            
-            freq.add(fq)
+            freq.add(fq);
 
         return ans;
