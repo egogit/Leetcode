@@ -1,32 +1,20 @@
-from collections import defaultdict
-
 class Solution:
     def minDeletions(self, s: str) -> int:
-        cnt = defaultdict(int);
+        cnt = Counter(s);
         ans = 0;
+        freq = set();
 
-        for a in s:
-            cnt[a] += 1;
+        arr = sorted(cnt.values(), reverse=True);
 
-        arr = list();
-
-        for a in cnt.values():
-            arr.append(a);
-        
-        arr.sort(reverse=True)
-
-        prev = arr[0];
-
-        i = 1;
-        while(i < len(arr)):
-            if prev == 0:
-                ans += sum(arr[i:]);
-                break
-            elif 0 < prev <= arr[i]:
-                ans += (arr[i]-prev+1)
-                arr[i] = prev - 1;
-
-            prev = arr[i];
-            i += 1;
+        for fq in arr:
+            if fq not in freq:
+                freq.add(fq)
+                continue;
+            
+            while fq > 0 and fq in freq:
+                fq -= 1;
+                ans += 1;
+            
+            freq.add(fq)
 
         return ans;
