@@ -20,8 +20,8 @@ class Solution:
         i = 1;
         while(i < len(arr)):
             if prev == 0:
-                ans += arr[i];
-                arr[i] = 0;
+                ans += sum(arr[i:]);
+                break
             elif 0 < prev <= arr[i]:
                 ans += (arr[i]-prev+1)
                 arr[i] = prev - 1;
